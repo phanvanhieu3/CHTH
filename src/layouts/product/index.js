@@ -13,9 +13,21 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 import authorsTableData from "layouts/product/data/authorsTableData";
+import CustomModal from "components/modal";
+import { useState } from "react";
 
 function Product() {
   const { columns, rows } = authorsTableData();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    console.log("vao");
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <DashboardLayout>
@@ -39,7 +51,12 @@ function Product() {
                 <MDTypography variant="h6" color="white">
                   Hàng hóa
                 </MDTypography>
-                <MDButton href="/HangHoa/Them" variant="gradient" color="success">
+                <MDButton
+                  // href="/HangHoa/Them"
+                  onClick={openModal}
+                  variant="gradient"
+                  color="success"
+                >
                   <Icon sx={{ fontWeight: "bold" }}>add</Icon>
                   Thêm
                 </MDButton>
@@ -57,6 +74,12 @@ function Product() {
           </Grid>
         </Grid>
       </MDBox>
+      <CustomModal isOpen={isModalOpen} onClose={closeModal}>
+        <div>
+          <h2 id="modal-title">Nội dung modal ở đây</h2>
+          <p id="modal-description">Mô tả modal.</p>
+        </div>
+      </CustomModal>
     </DashboardLayout>
   );
 }
